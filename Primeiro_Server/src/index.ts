@@ -14,3 +14,5 @@ app.get('/githubUser', getGitHubUser)
 app.get('/driversClassification', driversClassification)
 app.get('/circuits', getCircuitData)
 app.listen(3000)
+
+console.log("server started")
