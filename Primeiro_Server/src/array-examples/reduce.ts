@@ -1,0 +1,1 @@
+//Calculate the average age of all users.
