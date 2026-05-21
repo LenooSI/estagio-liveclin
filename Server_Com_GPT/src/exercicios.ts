@@ -3,35 +3,52 @@ const dados = [3, 12, 5, 20, 8, 15];
 function filtrarNumeros(numeros: number[]): number[] {
   let maiores: number[] = [];
 
-    for(let i = 0; i<numeros.length; i++){
-        if(numeros[i] > 10){
-            maiores.push(numeros[i])
-        }
+  for (let i = 0; i < numeros.length; i++) {
+    if (numeros[i] > 10) {
+      maiores.push(numeros[i]);
     }
-    return maiores;
+  }
+  return maiores;
 }
 
-console.log(filtrarNumeros(dados));
+//console.log(filtrarNumeros(dados));
 
-function somarMaiores(numeros: number[]): number{
-    let maiores = filtrarNumeros(numeros);
-    let resultado = maiores.reduce((acc:number, m: number) => acc + m, 0);
+function somarMaiores(numeros: number[]): number {
+  let maiores = filtrarNumeros(numeros);
+  let resultado = maiores.reduce((acc: number, m: number) => acc + m, 0);
 
-    return resultado;
+  return resultado;
 }
 
-console.log(somarMaiores(dados));
+//console.log(somarMaiores(dados));
 
-function filtrarMediaMaiores(numeros: number[]): number{
-    let maiores = filtrarNumeros(numeros); 
+function filtrarMediaMaiores(numeros: number[]): number {
+  let maiores = filtrarNumeros(numeros);
 
-    if (maiores.length === 0){
-        return 0;
+  if (maiores.length === 0) {
+    return 0;
+  }
+
+  let soma = maiores.reduce((acc: number, m: number) => acc + m, 0);
+
+  return soma / maiores.length;
+}
+
+//console.log(filtrarMediaMaiores(dados));
+
+function maioresQueDez(lista: number[]) {
+  let resultado: { dado: number; dobro: number }[] = [];
+
+  lista.forEach((numero) => {
+    if (numero > 10) {
+      resultado.push({
+        dado: numero,
+        dobro: numero * 2,
+      });
     }
+  });
 
-    let soma = maiores.reduce((acc:number, m: number) => acc + m, 0);
-
-    return soma / maiores.length;
+  return resultado;
 }
 
-console.log(filtrarMediaMaiores(dados));
+console.log(maioresQueDez(dados));
