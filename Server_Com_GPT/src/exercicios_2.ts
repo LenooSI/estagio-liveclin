@@ -5,19 +5,19 @@ const turma = [
   { nome: "Ana", nota: 6 },
 ];
 
-type aluno = {
+type Aluno = {
   nome: string;
   nota: number;
 };
 
-type matricula = {
+type Matricula = {
   nome: string;
   nota: number;
   status: string;
 };
 
-function alunosAprovados(alunos: aluno[]) {
-  let aprovados: matricula[] = [];
+function alunosAprovados(alunos: Aluno[]) {
+  let aprovados: Matricula[] = [];
 
   alunos.forEach((aluno) => {
     if (aluno.nota >= 6) {
@@ -34,15 +34,15 @@ function alunosAprovados(alunos: aluno[]) {
 
 //console.log(alunosAprovados(alunos))
 
-function alunosMatriculados(alunos: aluno[]) {
-  let estudantes: matricula[] = [];
+function alunosMatriculados(alunos: Aluno[]) {
+  let estudantes: Matricula[] = [];
 
   alunos.forEach((aluno) => {
     const status = aluno.nota >= 6 ? "Aprovado" : "Reprovado";
 
     estudantes.push({
       nome: aluno.nome,
-      nota: aluno.nota,
+      nota: aluno.nota,                                                                            // AQUI
       status,
     });
   });
@@ -52,7 +52,7 @@ function alunosMatriculados(alunos: aluno[]) {
 
 //console.log(alunosMatriculados(alunos))
 
-function buscarAluno(alunos: aluno[], nome: string) {
+function buscarAluno(alunos: Aluno[], nome: string) {
   const matriculado = alunos.find((aluno) => aluno.nome === nome);
 
   return matriculado || "Aluno não encontrado";
@@ -60,7 +60,7 @@ function buscarAluno(alunos: aluno[], nome: string) {
 
 //console.log(buscarAluno(turma, "Leno"))
 
-function atualizarNota(aluno: aluno[], nome: string, novaNota: number) {
+function atualizarNota(aluno: Aluno[], nome: string, novaNota: number) {
   const alunoExistente = aluno.some((aluno) => aluno.nome === nome);
 
   if (!alunoExistente) {
@@ -80,7 +80,7 @@ function atualizarNota(aluno: aluno[], nome: string, novaNota: number) {
 const notaAtualizada = atualizarNota(turma, "Leno", 10);
 //console.log(notaAtualizada)
 
-function removerAluno(alunos: aluno[], nome: string) {
+function removerAluno(alunos: Aluno[], nome: string) {
   const alunoExistente = alunos.some((aluno) => aluno.nome === nome);
 
   if (!alunoExistente) {
@@ -90,4 +90,59 @@ function removerAluno(alunos: aluno[], nome: string) {
   return alunos.filter((aluno) => aluno.nome !== nome);
 }
 
-console.log(removerAluno(turma, "Pedro"));
+//console.log(removerAluno(turma, "Pedro"));
+
+function cadastrarAluno(alunos: Aluno[], novoAluno: Aluno) {
+
+  const alunoExiste = alunos.some(
+    (aluno) => aluno.nome === novoAluno.nome
+  );
+
+  if (alunoExiste) {
+    return "Aluno já cadastrado";
+  }
+
+  return [...alunos, novoAluno];
+}
+
+const novaTurma = cadastrarAluno(turma, {
+  nome: "Carlos",
+  nota: 5
+});
+
+//console.log(novaTurma);
+
+function mediaDaTurma(turma: Aluno[]){
+  const quantidadeDeAlunos = turma.length
+  const somarNotas = turma.reduce((total, aluno) => total + aluno.nota, 0);
+  return somarNotas / quantidadeDeAlunos;
+}
+
+const media = mediaDaTurma(turma);
+//console.log(media);
+
+function maiorNota(turma: Aluno[]){
+  return turma.reduce((maior, aluno) => 
+    aluno.nota > maior.nota ? aluno : maior
+)}
+
+const melhorAluno = maiorNota(turma);
+//console.log(melhorAluno)
+
+function ordenarPorNota(turma: Aluno[]){
+  return turma.sort((a, b) => {
+    return a.nota - b.nota
+  })
+}
+
+const turmaOrdenada = ordenarPorNota(turma);
+//console.log(turmaOrdenada)
+
+function top3Alunos(turma: Aluno[]){
+  return turma
+    .sort((a, b) => b.nota - a.nota)
+    .slice(0,3);
+}
+
+const topAlunos = top3Alunos(turma);
+console.log(topAlunos)

@@ -47,12 +47,20 @@ function gamesByPlatform(games, platform) {
       })
       .map((game) =>({
       games: game.title,
-      platform: game.platforms.filter((p) => p !== platform)
+      platform: game.platforms.filter((p) => p === platform)
     }));
 } 
 const existingGames = gamesByPlatform(database.games, "PC");
 //console.log(existingGames)
 
-function searchParameter(gender, tags){
-  //buscar jogos pela tag e genero (ou pelo menos um desses)
+function searchParameter(games, search){
+  return games
+    .filter((game) => {
+      const desiredGender = game.genres.includes(search);
+      const desiredTag = game.tags.includes(search);
+      return desiredGender || desiredTag
+    })
+    .map((game) => game.title)
 }
+
+console.log(searchParameter(database.games, "Indie"));
